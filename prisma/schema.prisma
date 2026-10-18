@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum HouseType {
+  BEDSITTER
+  STUDIO
+  ONE_BEDROOM
+  TWO_BEDROOM
+  THREE_BEDROOM
+  FOUR_BEDROOM
+  FIVE_PLUS_BEDROOM
+  MAISONETTE
+  BUNGALOW
+  TOWNHOUSE
+  VILLA
+  PENTHOUSE
+  COMMERCIAL
+}
+
+enum ListingPurpose {
+  RENT
+  SALE
+}
+
+enum ListingStatus {
+  AVAILABLE
+  RESERVED
+  LET
+  SOLD
+}
+
+model Listing {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  description String
+  purpose     ListingPurpose @default(RENT)
+  houseType   HouseType
+  bedrooms    Int
+  bathrooms   Int
+  /// Monthly rent (RENT) or asking price (SALE), whole Kenyan shillings
+  price       Int
+  sizeSqm     Int?
+  area        String
+  address     String?
+  city        String         @default("Nairobi")
+  latitude    Float
+  longitude   Float
+  amenities   String[]
+  status      ListingStatus  @default(AVAILABLE)
+  published   Boolean        @default(true)
+  featured    Boolean        @default(false)
+  images      ListingImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([published, status])
+  @@index([houseType])
+}
+
+model ListingImage {
+  id        String  @id @default(cuid())
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  url       String
+  /// Cloudinary public_id; null for seeded placeholder images not stored in Cloudinary
+  publicId  String?
+  width     Int?
+  height    Int?
+  position  Int     @default(0)
+
+  @@index([listingId, position])
+}

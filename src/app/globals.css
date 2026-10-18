@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Design tokens — see docs/DESIGN.md */
+@theme {
+  --color-canvas: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-muted: #ededef;
+  --color-line: #e4e4e7;
+  --color-ink: #111111;
+  --color-ink-2: #52525b;
+  --color-ink-3: #a1a1aa;
+  --color-pin: #e5484d;
+  --color-pin-active: #186098;
+  --color-brand: #186098;
+  --color-brand-lime: #a8c850;
+  --color-whatsapp: #25d366;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --radius-card: 20px;
+  --radius-media: 14px;
+  --radius-hero: 28px;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-float: 0 20px 50px -20px rgba(0, 0, 0, 0.25);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility btn {
+  @apply inline-flex h-10 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-ink text-white hover:bg-black/80;
+}
+@utility btn-muted {
+  @apply btn bg-muted text-ink hover:bg-line;
+}
+@utility chip {
+  @apply inline-flex h-9 items-center rounded-full bg-muted px-4 text-[13px] font-medium text-ink-2 transition-colors hover:bg-line;
+}
+@utility chip-active {
+  @apply bg-ink text-white hover:bg-ink;
+}
+@utility card {
+  @apply rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-card)];
+}
+@utility input {
+  @apply h-11 w-full rounded-[var(--radius-media)] border border-line bg-surface px-3.5 text-sm text-ink placeholder:text-ink-3 focus:border-ink focus:outline-none;
+}
+@utility label {
+  @apply mb-1.5 block text-[13px] font-medium text-ink-2;
+}
+@utility h-display {
+  @apply font-display font-semibold tracking-[-0.03em];
+}
+
+/* Leaflet map pins (custom divIcon) */
+.ob-pin {
+  background: transparent;
+  border: 0;
+}
+.leaflet-container {
+  font-family: var(--font-sans);
 }
