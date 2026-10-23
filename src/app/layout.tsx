@@ -8,7 +8,7 @@ const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — Homes to rent in Nairobi`, template: `%s · ${site.shortName}` },
+  title: { default: `${site.name} — Homes to rent in Maralal`, template: `%s · ${site.shortName}` },
   description: site.tagline,
 };
 
