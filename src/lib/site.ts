@@ -73,7 +73,7 @@ export const services = [
   },
   {
     title: "Global real estate investments",
-    body: "Investment theses backed by valuation metrics for local and diaspora investors.",
+    body: "Investments ares backed by valuation metrics for local and diaspora investors.",
   },
 ];
 
