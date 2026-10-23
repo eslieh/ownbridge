@@ -3,7 +3,7 @@
 export const site = {
   name: "OwnBridge International",
   shortName: "OwnBridge",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_SITE_URL ?? "http://localhost:3000",
   tagline:
     "Properties managed with absolute precision. Investments guided by empirical truth. Legacies built for generations.",
   established: 2017,
@@ -11,13 +11,13 @@ export const site = {
   unitsManaged: "1,800+",
   remittanceWindow: "6th–8th",
   scorecardDay: "10th",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
-  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
-  whatsappNumber: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, ""),
+  email: process.env.NEXT_CONTACT_EMAIL ?? "",
+  phone: process.env.NEXT_CONTACT_PHONE ?? "",
+  whatsappNumber: (process.env.NEXT_WHATSAPP_NUMBER ?? "").replace(/\D/g, ""),
   socials: {
-    facebook: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "",
-    x: process.env.NEXT_PUBLIC_X_URL ?? "",
-    tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL ?? "",
+    facebook: process.env.NEXT_FACEBOOK_URL ?? "",
+    x: process.env.NEXT_X_URL ?? "",
+    tiktok: process.env.NEXT_TIKTOK_URL ?? "",
   },
 };
 

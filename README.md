@@ -31,12 +31,12 @@ Owner dashboard: `/admin` (log in with `OWNER_EMAIL` / `OWNER_PASSWORD` from `.e
 | `OWNER_EMAIL`, `OWNER_PASSWORD` | Owner account created by the seed |
 | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | Image uploads/deletes |
 | `CLOUDINARY_UPLOAD_PRESET` | Preset used for uploads; set the target folder on the preset in Cloudinary |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | WhatsApp buttons — digits only, e.g. `254712345678` |
-| `NEXT_PUBLIC_SITE_URL` | Links in WhatsApp enquiry messages, metadata |
-| `NEXT_PUBLIC_FACEBOOK_URL`, `NEXT_PUBLIC_X_URL`, `NEXT_PUBLIC_TIKTOK_URL` | Footer socials (empty = hidden) |
-| `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_CONTACT_PHONE` | Footer contact |
+| `NEXT_WHATSAPP_NUMBER` | WhatsApp buttons — digits only, e.g. `254712345678` |
+| `NEXT_SITE_URL` | Links in WhatsApp enquiry messages, metadata |
+| `NEXT_FACEBOOK_URL`, `NEXT_X_URL`, `NEXT_TIKTOK_URL` | Footer socials (empty = hidden) |
+| `NEXT_CONTACT_EMAIL`, `NEXT_CONTACT_PHONE` | Footer contact |
 
-`NEXT_PUBLIC_*` values are baked in at build time — rebuild after changing them.
+`NEXT_*` values are baked in at build time — rebuild after changing them.
 
 ## How it works
 
