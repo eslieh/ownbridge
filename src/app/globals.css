@@ -65,11 +65,3 @@ body {
   @apply font-display font-semibold tracking-[-0.03em];
 }
 
-/* Leaflet map pins (custom divIcon) */
-.ob-pin {
-  background: transparent;
-  border: 0;
-}
-.leaflet-container {
-  font-family: var(--font-sans);
-}

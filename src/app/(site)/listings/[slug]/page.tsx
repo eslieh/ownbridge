@@ -99,7 +99,7 @@ export default async function ListingPage({ params }: PageProps<"/listings/[slug
           <h2 className="mt-10 font-display text-lg font-semibold">Location</h2>
           <div className="mt-3 h-80 overflow-hidden rounded-[var(--radius-card)]">
             <ListingsMap
-              zoom={15}
+              zoom={16}
               showLinks={false}
               points={[{ id: listing.id, slug: listing.slug, title: listing.title, price: formatPrice(listing.price, listing.purpose), lat: listing.latitude, lng: listing.longitude }]}
             />

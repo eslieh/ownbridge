@@ -1,11 +1,8 @@
 "use client";
 
-import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
-import L from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { useState } from "react";
 import { NAIROBI } from "@/lib/listing-options";
-import { TILE_ATTRIBUTION, TILE_URL, pinIcon } from "./leaflet-base";
+import { GoogleMapEmbed } from "./google-embed";
 
 export type MapPoint = {
   id: string;
@@ -16,47 +13,55 @@ export type MapPoint = {
   lng: number;
 };
 
-function FitBounds({ points }: { points: MapPoint[] }) {
-  const map = useMap();
-  useEffect(() => {
-    if (points.length === 0) return;
-    if (points.length === 1) {
-      map.setView([points[0].lat, points[0].lng], 15);
-      return;
-    }
-    map.fitBounds(L.latLngBounds(points.map((p) => [p.lat, p.lng])), { padding: [40, 40] });
-  }, [map, points]);
-  return null;
-}
-
+/**
+ * Google Maps embed. The keyless embed only supports one pin, so with several
+ * points we show the selected one and a strip to switch between them.
+ */
 export default function ListingsMap({
   points,
-  zoom = 12,
+  zoom = 15,
   showLinks = true,
 }: {
   points: MapPoint[];
   zoom?: number;
   showLinks?: boolean;
 }) {
-  const icon = pinIcon();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = points.find((p) => p.id === selectedId) ?? points[0];
+
   return (
-    <MapContainer
-      center={points[0] ? [points[0].lat, points[0].lng] : NAIROBI}
-      zoom={zoom}
-      scrollWheelZoom={false}
-      className="h-full w-full"
-    >
-      <TileLayer url={TILE_URL} attribution={TILE_ATTRIBUTION} />
-      <FitBounds points={points} />
-      {points.map((p) => (
-        <Marker key={p.id} position={[p.lat, p.lng]} icon={icon}>
-          <Popup>
-            <strong>{p.price}</strong>
-            <br />
-            {showLinks ? <a href={`/listings/${p.slug}`}>{p.title}</a> : p.title}
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <div className="relative h-full w-full bg-muted">
+      {selected ? (
+        <GoogleMapEmbed key={selected.id} lat={selected.lat} lng={selected.lng} zoom={zoom} title={selected.title} />
+      ) : (
+        <GoogleMapEmbed lat={NAIROBI[0]} lng={NAIROBI[1]} zoom={12} title="Nairobi" />
+      )}
+
+      {points.length > 1 && (
+        <div className="absolute inset-x-2 bottom-2 flex gap-2 overflow-x-auto pb-1">
+          {points.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => setSelectedId(p.id)}
+              className={`shrink-0 rounded-full border px-3 py-1.5 text-[13px] shadow-sm ${
+                p.id === selected?.id ? "border-ink bg-ink text-white" : "border-line bg-surface text-ink"
+              }`}
+            >
+              <strong>{p.price}</strong> · {p.title}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {showLinks && selected && points.length > 1 && (
+        <a
+          href={`/listings/${selected.slug}`}
+          className="absolute right-2 top-2 rounded-full bg-surface px-3 py-1.5 text-[13px] font-medium text-ink shadow-sm"
+        >
+          View home →
+        </a>
+      )}
+    </div>
   );
 }
